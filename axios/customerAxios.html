@@ -9,12 +9,13 @@
 	rel="stylesheet">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
 
     <!-- axios library를 이용한 비동기 요청 보내기 위해 필요 -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
+</head> 
 <body>
     <div id="app">
         <div class="container">
@@ -49,7 +50,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <tr v-for="cus in result" @click="getCustomer(cus.num)">
+                            <td v-text="cus.num"></td>
+                            <td v-text="cus.name"></td>
+                            <td v-text="cus.address"></td>
+                        </tr>            
                     </tbody>
                 </table>
         </div>
@@ -66,21 +71,52 @@
                    methods:{
                        allCustomers(){
                            axios
-                           .get('http://localhost:7070/rest/customers') // 비동기 처리 요청
+                           .get('http://localhost:8080/rest/customers') // 비동기 처리 요청
                            .then(response => {
                                this.result = response.data
                                console.log(response.data)
                             });
                        },
-                       addCustomer(){},
-                       deleteCustomer(){},
-                       updateCustomer(){},
+                       getCustomer(num){
+                           axios
+                           .get('http://localhost:8080/rest/customers/' + num) // 비동기 처리 요청
+                           .then(response => {
+                               this.num = response.data.num
+                               this.name = response.data.name
+                               this.address = response.data.address
+                            });
+                       },
+                       addCustomer(){
+                           axios
+                           .post('http://localhost:8080/rest/customers/', {
+                               num : this.num, name : this.name, address : this.address
+                           })
+                           .then(response => {
+                               this.allCustomers();
+                           });
+                       },
+                       deleteCustomer(){
+                            axios
+                            .delete('http://localhost:8080/rest/customers/' + this.num) // 비동기 처리 요청
+                            .then(response => {
+                                this.allCustomers();
+                            });                            
+                       },
+                       updateCustomer(){
+                           axios
+                           .put('http://localhost:8080/rest/customers/', {
+                                num : this.num, name : this.name, address : this.address
+                           })
+                           .then(response => {
+                               this.allCustomers();
+                           });
+                       },
                        init(){}
                    },
                    mounted(){
                        this.allCustomers();
                    }
                 })
-                </script>
+            </script>
 </body>
 </html>
