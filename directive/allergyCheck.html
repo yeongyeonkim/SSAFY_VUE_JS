@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <center>
+            <h1 style="color:blue;">SSAFY SAFE FOOD</h1>
+            
+            <fieldset>
+                <legend><h3>{{title}}</h3></legend>
+                <span v-for="allergy in allergen">
+                    <label><input v-model="allergyList" type="checkbox" v-bind:value="allergy">{{allergy}} </span></label>
+                </span>
+            </fieldset>
+            <div v-if="allergyList != 0">
+                <fieldset>
+                    알러지 요인 : 
+                    <template v-for="allergy in allergyList">
+                        {{allergy}}
+                    </template>
+                </fieldset>
+             </div>
+            <div v-else="">
+                <fieldset v-else="">
+                </fieldset>
+            </div>
+        </center>
+        <button v-once @click="count">ok</button><br>
+    </div>
+    <script>
+        var data = {
+            allergen:["대두","땅콩","우유","게","새우","참치","연어","쑥","소고기","닭고기","돼지고기","복숭아","민들레","계란흰자"],
+            title:'알레르기 체크',
+            allergyList:[], //체크박스에서 체크한 값들이 들어 감
+            counts : 0
+        }
+        var vm = new Vue({
+            el:'#app',
+            data : data,
+            methods:{
+                count(){
+                   alert(this.allergyList + " " + this.allergyList.length)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

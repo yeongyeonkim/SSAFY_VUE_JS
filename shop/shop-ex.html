@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SSAFY</title>
+<script src = "https://unpkg.com/vue"></script>
+<style type="text/css">
+	@import url("./shop.css");
+</style>
+</head>
+<body>
+	<div class="nav-bar"></div>
+	<div id="app">
+		<div class="product">
+			<div class="product-image">
+				<img v-bind:src="image">
+			</div>
+
+			<div class="product-info">
+				<h1>Blouse</h1>
+				
+				<p v-if="inStock" style="color:blue">In Stock</p>
+				<p v-else style="color:red">Out Stock</p>
+				
+				<!-- On Sale값에 따라 메세지 뿌려주기; On Sale!  -->
+				<span v-show="onSale">봄에 어울리는 멋진 데님 블라우스</span>
+
+				<p></p>
+
+				<ul>
+					<li v-for="detail in details">{{detail}}</li>
+				</ul>
+
+						
+				<div v-for="option in options" :key="option.optionId" class="color-box"
+				@mouseover="updateProduct(option.optionImage)"
+				:style="[{ backgroundColor: option.optionColor },
+						{display : 'inline-block'},
+						{margin: '5px'}
+						]">
+					
+				</div>
+				<br>
+
+				<select>
+					<option v-for="size in sizes">{{size}}</option>
+				</select> 
+							
+				<br>
+				<!-- addToCart 호출 -->
+				<button @click=addToCart()>Add </button>
+
+				<!-- removeFromCart 호출 -->
+				<button @click=removeFromCart()>Remove </button>
+
+
+				<div class="cart">
+					<p>Cart({{cart}})</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	
+	var app = new Vue({
+	  el:"#app",
+	  data: {
+	    product: 'Blouse',
+	    image: '../img/blueBlouse.jpg',
+		inStock: true,
+		quantity: 10,
+		onSale: true,
+		sizes : ['90','95','100','105','110','115','120'],
+	    details: ['80% cotton', '20% polyester', 'Gender-neutral'],
+	    options: [
+	      {
+	        optionId: 2234,
+	        optionColor: 'violet',
+	        optionImage: '../img/violetBlouse.jpg'
+	      },
+	      {
+	        optionId: 2235,
+	        optionColor: 'blue',
+	        optionImage: '../img/blueBlouse.jpg'
+	      }
+	    ],
+	    
+	    cart: 0
+	  },
+	  methods:{
+		  updateProduct(option){
+			this.image = option;
+		  },
+		  addToCart(){
+			  if(this.cart == 10) return alert("Out of Stock!!!");
+			  if(this.cart < 10) {
+				  this.cart++;
+				  this.quantity--;
+			  }
+			  if(this.cart == 10) {
+				  this.inStock = false;	
+			  }
+		  },
+		  removeFromCart(){
+			  if(this.cart > 0){
+				this.cart--;
+				this.quantity++;
+			  } 
+			  if(this.cart < 10) this.inStock = true;
+		  }
+	  },
+	  watch:{
+		  //quantity 감시
+		  quantity: function(){
+			if(this.quantity == 0) this.inStock = false;
+			else this.inStock = true;
+		  }
+	  }
+
+
+
+	})
+
+
+	</script>
+	
+
+</body>
+</html>

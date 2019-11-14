@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script> <!-- 1) vue lib loading -->
+</head>
+<body>
+    <div id="app">
+        {{num}}, {{name}}, {{address}}
+        {{hello()}}
+        {{bye()}}
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                num:123,
+                name:'queen',
+                address:'seoul'
+            },
+            methods:{
+                hello: function(){
+                    console.log('hello function called...');
+                },
+                bye(){
+                    console.log('bye function called...');
+                }
+            }
+        })
+    </script>
+</body>
+</html>

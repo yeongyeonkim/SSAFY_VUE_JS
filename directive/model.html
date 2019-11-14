@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src = "https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        v-bind : <input v-bind:value="message"><br>
+        <!-- v-model: vue 인스턴스의 데이터(message2)와 화면요소(input)를 양방향으로 연결 
+            : input: select, textarea에 사용
+        -->
+        v-model : <input v-model="message2"><br>
+        <p>{{message}}</p>
+        <p>{{message2}}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el : '#app',
+            data : {
+                message:'hello, boy',
+                message2:'yo'
+            }
+        })
+    </script>
+</body>
+</html>

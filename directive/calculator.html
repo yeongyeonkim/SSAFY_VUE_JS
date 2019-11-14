@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>    
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>calculator</h1>
+        <input v-model.number="input1">
+        <select v-model="operator">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+        <input v-model.number="input2">
+        <br>
+        <h1>result = {{input1}} {{operator}} {{input2}} = {{calc}}</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                input1 : 1,
+                operator : '+',
+                input2 : 2
+            },
+            computed:{
+                calc(){
+                    return eval(this.input1 + this.operator + this.input2)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

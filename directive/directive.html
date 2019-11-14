@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Document</title>
+   <script src = "https://unpkg.com/vue"></script>
+</head>
+<body>
+   <div id="app">
+       {{msg}}<br>
+       <div v-text="msg"></div>
+       <div v-html="msg"></div>
+       <hr>
+       <a v-if="flag" href="#"> gogo vue</a>
+       <a v-else href="#">stop vue</a>
+       <hr>
+       <a v-show="flag" href="#">hello</a>
+       <hr>
+       <ul>
+           <li v-for="system in systems">
+               {{system}}
+           </li>
+       </ul>
+       <hr>
+       <h3 v-bind:id="uid">
+           welcome, amie!
+       </h3>
+       <img v-bind:src="src">
+       <img :src="src">
+       <hr>
+       <div v-if="num > 0"><h3>positive</h3></div>
+       <div v-else-if="num < 0"><h3>negative</h3></div>
+       <div v-else=""><h3>zero</h3></div>
+       
+   </div>
+   <script>
+       var vm = new Vue({
+           el : "#app",
+           data : {
+               flag : true,
+               flag2 : false,
+               systems : ['android', 'ins', 'window'],
+               msg : "<h1>welcome to vue</h1>",
+               uid : 'a999',
+               src : '../img/b1.jpg',
+               num : 99
+           }
+       });
+   </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <input v-model="message"/><br>
+        <input v-model="num"/><br>
+        <input v-model="value"/> <span v-text="msg"></span>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                message: 'winter has come!',
+                num : '0',
+                msg : '',
+                value : ''
+            },
+            /* watch : 반응형 콜백 메소드
+            지정한 프로퍼티를 변경될 때를 지정한 함수가 실행 됨  */
+            watch:{
+                message:function(val){
+                    console.log('message changed...' + val);
+                },
+                num(val){
+                    if(val < 0) console.log('음수입니다.');
+                    else if(val > 0) console.log('양수입니다.');
+                },
+                value(val){
+                    if(val.length > 3) {
+                        this.msg = 'long...'
+                    } else {
+                        this.msg = 'short...'
+                    }
+                }
+            },
+            /* 반응형 getter. cache 사용 */
+            computed:{
+                compute(){
+                    console.log('computed...');
+                    
+                }
+            }
+        })
+    </script>
+</body>
+</html>

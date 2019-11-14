@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <button v-on:click="upvote">upvote! {{count}}</button> -->
+        <button @click="upvote">upvote! {{count}}</button><br>
+        <button v-once @click="upvote">upvote! {{count}}</button><br>
+        <input @keyup="count++">
+        <input @keyup.enter="count++">
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                count: 0
+            },
+            methods:{
+                upvote(){
+                    return this.count++;
+                }
+            }
+        })
+        var vm2 = new Vue({
+            el:'#app2',
+            data:{
+
+            }
+        })
+    </script>
+
+</body>
+</html>
